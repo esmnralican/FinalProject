@@ -41,10 +41,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
             var result = _productService.GetById(id);
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
 
-     [HttpPost("add")]
+        [HttpPost("add")]
      public IActionResult Add(Product product)
         {
             var result = _productService.Add(product);
