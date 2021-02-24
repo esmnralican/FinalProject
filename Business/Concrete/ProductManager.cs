@@ -8,6 +8,9 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FluentValidation;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -21,15 +24,15 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        [Log]
         public IResult Add(Product product)
         {
             //business codes
-            
-            if(product.ProductName.Length<2)
-            {
-                //magic string
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            //validation
+            ValidationTool.Validate(new ProductValidator(), product);
+
+
+
             _productDal.Add(product);
 
             return new SuccessResult(Messages.ProductAdded);
