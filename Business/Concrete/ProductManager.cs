@@ -12,6 +12,7 @@ using FluentValidation;
 using Business.ValidationRules.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Aspects.Autofac.Validation;
+using Business.CCS;
 
 namespace Business.Concrete
 {
@@ -19,21 +20,22 @@ namespace Business.Concrete
     {
 
         IProductDal _productDal;
-
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
+            
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+       [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
             //validation
 
-            _productDal.Add(product);
+               _productDal.Add(product);
 
-            return new SuccessResult(Messages.ProductAdded);
+                return new SuccessResult(Messages.ProductAdded);
+           
         }
 
         public IDataResult<List<Product>> GetAll()
